@@ -19,3 +19,4 @@ wheels/
 *.tgz, *.egg
 
 *get_helm.sh
+*.csv
