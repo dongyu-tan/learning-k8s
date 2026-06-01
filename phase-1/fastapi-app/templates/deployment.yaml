@@ -1,0 +1,68 @@
+# https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-fastapi
+  labels:
+    app: {{ .Release.Name }}-app
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-app
+  replicas: {{ .Values.replicaCount }}
+  strategy:
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-app
+    spec:
+      containers:
+        - name: fastapi-container
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          # imagePullPolicy: IfNotPresent # For deployed images
+          imagePullPolicy: {{ .Values.image.pullPolicy }} # For local images
+          resources:
+            # requests:
+            #   cpu: 500m
+            #   memory: 256Mi
+            limits:
+              cpu: {{ .Values.resources.limits.cpu }}
+              memory: {{ .Values.resources.limits.memory }}
+          livenessProbe:
+            httpGet:
+              path: /liveness
+              port: {{ .Values.image.containerPort }}
+          #   tcpSocket:
+          #     port: 80
+            initialDelaySeconds: 5
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /readiness
+              port: {{ .Values.image.containerPort }}
+            initialDelaySeconds: 5
+            timeoutSeconds: 2
+            successThreshold: 1
+            failureThreshold: 3
+            periodSeconds: 10
+          # env:
+          #   - name: DB_HOST
+          #     valueFrom:
+          #       configMapKeyRef:
+          #         name: pthon-learn
+          #         key: DB_HOST
+          # ports:
+          #   # purely informational, still works without containerPort defined
+          #   - containerPort: 5000
+          #     name: python-learn
+      #     volumeMounts:
+      #       - name: localtime
+      #         mountPath: /etc/localtime
+      # volumes:
+      #   - name: localtime
+      #     hostPath:
+      #       path: /usr/share/zoneinfo/Asia/Taipei
+      # restartPolicy: Always
