@@ -17,3 +17,5 @@ wheels/
 .DS_Store, Thumbs.db
 *.log
 *.tgz, *.egg
+
+*get_helm.sh
