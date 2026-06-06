@@ -1,0 +1,17 @@
+.venv/
+venv/
+__pycache__/
+*.pyc
+.git/
+.env
+
+.python-version
+
+infra/
+*.tf
+*.tfstate*
+.terraform/
+
+helm/
+helm_get.sh
+fastap-app/
