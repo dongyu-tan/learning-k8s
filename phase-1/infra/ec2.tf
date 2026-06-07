@@ -1,3 +1,16 @@
+# resource "aws_eip" "app" {
+#   domain = "vpc"
+#
+#   lifecycle {
+#     prevent_destroy = true
+#   }
+# }
+#
+# resource "aws_eip_association" "app" {
+#   instance_id   = aws_instance.app.id
+#   allocation_id = aws_eip.app.id
+# }
+
 resource "aws_instance" "app" {
   # the ami must use t3.nano at least
   ami = "ami-0367763820bb4f68b"
@@ -14,6 +27,3 @@ resource "aws_instance" "app" {
   }
 }
 
-output "ec2_public_ip" {
-  value = aws_instance.app.public_ip
-}

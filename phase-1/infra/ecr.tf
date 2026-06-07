@@ -13,8 +13,3 @@ resource "aws_ecr_repository" "learn-infra-backend" {
 # resource "aws_ecrpublic_repository" "learn-infra-backend" {
 #   repository_name = "learn-infra"
 # }
-
-output "ecr_url" {
-  value       = aws_ecr_repository.learn-infra-backend.repository_url
-  description = "learn-infra-backend ecr url"
-}
