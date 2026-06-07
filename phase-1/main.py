@@ -46,6 +46,10 @@ async def create_car(car: Car):
 async def get_all_cars():
     return list(CAR_DB.values())
 
+@app.get("/cars_test")
+async def get_all_cars_test():
+    return list(CAR_DB.values())
+
 # 3. READ (Get One by ID)
 @app.get("/cars/{car_id}")
 async def get_car(car_id: int):
