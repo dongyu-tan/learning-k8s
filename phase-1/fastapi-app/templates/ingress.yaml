@@ -3,10 +3,13 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ .Release.Name }}-ingress
-  # annotations: # DEPRECATED, use spec.ingressClassName instead
+  annotations:
+      alb.ingress.kubernetes.io/scheme: internet-facing
+      alb.ingress.kubernetes.io/target-type: ip
+  # annotations: # DEPRECATED, use spec.ingressClassName instead for the 
   #   kubernetes.io/ingress.class: nginx
 spec:
-  ingressClassName: nginx
+  ingressClassName: alb
   rules:
     - host: {{ .Values.ingress.host | quote }}
       http:

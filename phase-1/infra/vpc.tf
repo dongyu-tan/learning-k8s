@@ -14,7 +14,9 @@ resource "aws_subnet" "public_subnet_1" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "public-subnet-1"
+    Name                                   = "public-subnet-1"
+    "kubernetes.io/role/elb"               = "1" # tells ALB controller this is for public ALBs
+    "kubernetes.io/cluster/my-eks-cluster" = "shared"
   }
 }
 
@@ -26,7 +28,9 @@ resource "aws_subnet" "public_subnet_2" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "public-subnet-2"
+    Name                                   = "public-subnet-2"
+    "kubernetes.io/role/elb"               = "1" # tells ALB controller this is for public ALBs
+    "kubernetes.io/cluster/my-eks-cluster" = "shared"
   }
 }
 
@@ -38,7 +42,8 @@ resource "aws_subnet" "private_subnet" {
   # availability_zone = "us-east-1a"
 
   tags = {
-    Name = "private-subnet-1"
+    Name                              = "private-subnet-1"
+    "kubernetes.io/role/internal-elb" = "1" # tells ALB controller this is for public ALBs
   }
 }
 

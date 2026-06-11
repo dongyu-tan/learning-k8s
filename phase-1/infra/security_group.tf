@@ -45,7 +45,7 @@ resource "aws_security_group" "ec2_sg" {
   vpc_id = aws_vpc.main.id
 
   ingress {
-    description = "SSH"
+    description = "FastAPI port"
     from_port   = 8000
     to_port     = 8000
     protocol    = "tcp"
