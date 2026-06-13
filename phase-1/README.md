@@ -9,12 +9,33 @@ This phase invovles learning and utilizng the follwing tools and techniques
 
 - Minikube(k8s)
   - Basic kubectl commands
+    - kubectl:
+      - create, spin up something
+      - expose, expose to network
+      - service, open service
+      - describe, get configs
+      - logs
+      - exec
+      - delete
   - Basic k8s configs
     - With liveness and readiness probes
 
 - Helm charts
   - Basic helm commands
+    - helm:
+      - repo add, add artifact repository
+      - repo update, update local repo cache
+      - search repo
+      - install, install a chart
+      - list, list all helm application
+      - upgrade, upgrade application
+      - uninstall, uninstall and delete resource
+      - show values 
+      - get values
   - Basic helm configs
+
+- ArgoCD (GitOps)
+  - Basics of ArgoCD
 
 - Terraform (IaC)
   - Basic terraform commands
@@ -48,6 +69,8 @@ By the end of this phase, I should be able to understand, apply and utilize to t
 - Networking & Security Groups
 
 Note:
+- Simple workflow with helm and kubectl:
+  - minikube start -> helm install {release name} or {chart} -> kubectl get pods -> kubectl logs
 - When login to aws, need to sudo docker login, docker login doesn't work
 - cicd pipeline works
 - Stuck on eks deployment, turns out to be missing vpc id for the pods, terraform deployment was done
@@ -74,3 +97,4 @@ Note:
   - Private route table:
     - send traffic through NAT Gateway from within
 - Subnets tags are functional, not just metadata
+- ArgoCD, when adding repo using ssh, remember to argocd login localhost:8080
