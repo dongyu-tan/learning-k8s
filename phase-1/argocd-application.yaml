@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: fastapi-app
+  namespace: argocd # Must be where ArgoCD is installed
+spec:
+  project: default
+  source:
+    repoURL: git@github.com:dongyu-tan/learning-k8s.git # E.g., https://github.com/user/repo.git
+    targetRevision: main # Your current git branch
+    path: phase-1/fastapi-app # <--- CRITICAL: Must point here!
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev # The namespace in Minikube you want the app to live in
+  syncPolicy:
+    automated: # Automatically deploy changes
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true # Creates the target namespace if it doesn't exist
