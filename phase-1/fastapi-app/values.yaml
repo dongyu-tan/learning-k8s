@@ -9,8 +9,8 @@ replicaCount: 1
 image:
   repository: learn-infra
   # This sets the pull policy for images.
-  # pullPolicy: IfNotPresent # This is for eks
-  pullPolicy: Never # This is for local
+  pullPolicy: IfNotPresent # This is for eks
+  # pullPolicy: Never # This is for local
   # Overrides the image tag whose default is the chart appVersion.
   tag: latest
   containerPort: 8000
