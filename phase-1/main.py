@@ -1,8 +1,11 @@
 from typing import Optional
 from fastapi import FastAPI, HTTPException, status
 from pydantic.main import BaseModel
+from prometheus_fastapi_instrumentator import Instrumentator
 
 app = FastAPI()
+
+Instrumentator().instrument(app).expose(app)
 
 CAR_DB = {}
 car_id_counter = 1

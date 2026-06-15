@@ -69,6 +69,8 @@ By the end of this phase, I should be able to understand, apply and utilize to t
 - Networking & Security Groups
 
 Note:
+- minikube start flow
+  - start -> eval -> build image
 - Simple workflow with helm and kubectl:
   - minikube start -> helm install {release name} or {chart} -> kubectl get pods -> kubectl logs
 - When login to aws, need to sudo docker login, docker login doesn't work
@@ -98,3 +100,13 @@ Note:
     - send traffic through NAT Gateway from within
 - Subnets tags are functional, not just metadata
 - ArgoCD, when adding repo using ssh, remember to argocd login localhost:8080
+- Monitoring:
+  - Layer 1(Infra metrics, is my cluster healthy?): K8s has it's own monitoring services, to monitor the CPU, Memory usages, Status
+  - Layer 2(Application metricsm is my app healthy?): FastAPI has it's own prometheus endpoint to be scraped and reflected in the monitors, requests per seconds, which endpoints is slow, error rate, response time, latency
+  - Service manifests needs to expose a label for the ServiceMonitor to match
+  - port name exposed from Service must be matched in ServiceMonitor
+  - Service monitor labels.release must match helm release name, can check helm list
+  - If using different namespace, need to specify in ServiceMonitor
+    - namespaceSelector.matchNames: target_namespace
+  - Can use this command to query http_requests_total, in Grafana and Prometheus
+  - Grafana can use this ID for dashboard via import dashboard, 22676

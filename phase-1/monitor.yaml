@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: fastapi-monitoring
+  namespace: monitoring # Deploy to the same namespace as your Prometheus stack
+  labels:
+    release: monitoring # CRD selector: must match the Helm release name
+spec:
+  namespaceSelector:
+    matchNames:
+      - dev
+  selector:
+    matchLabels:
+      app: fastapi-service # Must match the label on your application Service
+  endpoints:
+    - port: metrics
+      interval: 15s
+      path: /metrics
