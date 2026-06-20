@@ -19,6 +19,42 @@ This phase invovles learning and utilizng the follwing tools and techniques
       - delete
   - Basic k8s configs
     - With liveness and readiness probes
+  - Kubeernetes
+    - Ingress
+    - Pods
+      - Where all the networking happens
+      - Each pod has it's own ip addresses
+      - Can talk to all pods on all nodes
+      - Container in pods can talk to each other using localhost
+      - Communication across pods requires the IP Address of the pods
+    - CNI Plugin
+      - Container Networking Interface
+      - Networking brain of K8s cluster
+    - Service
+      - Pods are ephemeral(momentary, change often)
+      - NodePort
+        - Exposes IP Address to allow direct access to any node's IP Address
+      - ClusterIP
+        - Creates cluters wide IP addresses
+      - Load Balancers
+        - Usually sits inside cloud network (VPC) in a cloud environment
+          - IP Address handled by the cloud services
+        - Sits in On-Prem as well, but require more configuration
+          - cilium
+          - MetalLB
+    - Workloads
+      - DeploymentSets
+        - web server, apis
+        - scaled as desire
+        - ephemeral storage
+      - StatefulSets
+        - db, message queues
+        - scaled as desire
+        - dedicated/persistent storage
+      - DaemonSets
+        - background tasks, logs, agents, security
+        - exactly 1 pod per node
+        - no storage
 
 - Helm charts
   - Basic helm commands
@@ -47,14 +83,21 @@ This phase invovles learning and utilizng the follwing tools and techniques
   - EC2
   - IAM Policy
   - IAM Role attachements to EC2
-  - VPC
-    - Subnets
-    - Security Groups
-      - Traffic bouncer
-    - Gateways
-      - IGW
-      - NAT
-    - Route Tables
+  - Region
+    - VPC
+      - Availability Zone(AZ)
+        - Subnets
+          - Public
+          - Private
+            - Private subnets can't be access by default, you need Internet Gateway and attach to the VPC. Then you need route table to route traffics
+      - CIDR block, private network range (10.0.0.0/16, the 16 preserves the first 8 bits of the ip, 10.0.X.X)
+    - Resources within private subnet of a VPC can talk to each other but not outside world
+  - Security Groups
+    - Traffic bouncer
+  - Gateways
+    - IGW
+    - NAT
+  - Route Tables
   - EKS
     - IRSA(IAM Roles for service)
     - ALB Controller
