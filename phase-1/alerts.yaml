@@ -1,0 +1,38 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: fastapi-app-alerts
+  namespace: monitoring
+  labels:
+    release: monitoring # must match your helm release name, same as ServiceMonitor
+spec:
+  groups:
+    - name: fastapi-app.rules
+      rules:
+        - alert: PodCrashLooping
+          expr: rate(kube_pod_container_status_restarts_total{namespace="dev"}[15m]) > 0
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Pod {{ $labels.pod }} is crash looping"
+
+        - alert: HighErrorRate
+          expr: |
+            sum(rate(http_requests_total{status=~"5.."}[5m])) 
+            / sum(rate(http_requests_total[5m])) > 0.05
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Error rate above 5% for the last 5 minutes"
+
+        - alert: HighMemoryUsage
+          expr: |
+            container_memory_working_set_bytes{namespace="dev"} 
+            / container_spec_memory_limit_bytes{namespace="dev"} > 0.9
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Pod {{ $labels.pod }} memory usage above 90%"
