@@ -1,0 +1,101 @@
+aws_region = "ap-southeast-5"
+
+vpc_name = "capstone-1-vpc"
+vpc_cidr = "10.0.0.0/16"
+
+vpc_azs = [
+  "ap-southeast-5a",
+  "ap-southeast-5b",
+  "ap-southeast-5c",
+]
+
+vpc_private_subnets = [
+  "10.0.1.0/24",
+  "10.0.2.0/24",
+  "10.0.3.0/24",
+]
+
+vpc_public_subnets = [
+  "10.0.11.0/24",
+  "10.0.12.0/24",
+  "10.0.13.0/24",
+]
+
+vpc_enable_nat_gateway = true
+vpc_single_nat_gateway = true
+vpc_enable_vpn_gateway = true
+
+vpc_terraform   = "true"
+vpc_environment = "dev"
+
+rds_identifier        = "capstone-1-db"
+rds_engine            = "postgres"
+rds_engine_version    = "17"
+rds_instance_class    = "db.t4g.micro"
+rds_allocated_storage = 5
+rds_db_name           = "capstone1"
+rds_username          = "capstone_admin"
+rds_port              = 5432
+
+rds_iam_database_authentication_enabled = true
+rds_maintenance_window                  = "Mon:00:00-Mon:03:00"
+rds_backup_window                       = "03:00-06:00"
+
+rds_monitoring_interval    = 60
+rds_monitoring_role_name   = "capstone-1-rds-monitoring"
+rds_create_monitoring_role = true
+
+rds_tags = {
+  Name        = "capstone-1-db"
+  Terraform   = "true"
+  Environment = "dev"
+}
+
+rds_create_db_subnet_group = true
+rds_family                  = "postgres17"
+rds_major_engine_version    = "17"
+rds_deletion_protection     = false
+
+rds_parameters = [
+  { name = "autovacuum", value = "1" },
+  { name = "client_encoding", value = "UTF8" },
+]
+
+rds_options = []
+
+eks_name               = "my-eks-cluster"
+eks_kubernetes_version = "1.33"
+
+eks_addons = {
+  coredns = {}
+  eks-pod-identity-agent = {
+    before_compute = true
+  }
+  kube-proxy = {}
+  vpc-cni = {
+    before_compute = true
+  }
+}
+
+eks_endpoint_public_access                   = true
+eks_enable_cluster_creator_admin_permissions = true
+
+eks_managed_node_groups = {
+  worker = {
+    ami_type       = "AL2023_x86_64_STANDARD"
+    instance_types = ["t3.medium"]
+
+    min_size     = 1
+    max_size     = 3
+    desired_size = 2
+
+    iam_role_additional_policies = {
+      ecr_read = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+    }
+  }
+}
+
+eks_tags = {
+  Environment = "dev"
+  Terraform   = "true"
+}
