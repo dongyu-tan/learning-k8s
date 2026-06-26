@@ -25,6 +25,5 @@ wheels/
 
 *.tfstate
 *.tfstate.backup
-*.tfstate.lock.hcl
 phase-1/infra/.terraform
 phase-1/infra/.terraform.lock.hcl
