@@ -46,11 +46,12 @@ resource "aws_security_group" "rds" {
   vpc_id      = module.aws_vpc.vpc_id
 
   ingress {
-    description = "PostgreSQL access from within the VPC"
-    from_port   = var.rds_port
-    to_port     = var.rds_port
-    protocol    = "tcp"
-    cidr_blocks = [var.vpc_cidr]
+    description     = "PostgreSQL access from within the VPC"
+    from_port       = var.rds_port
+    to_port         = var.rds_port
+    protocol        = "tcp"
+    security_groups = [module.aws_eks.node_security_group_id]
+    # cidr_blocks = [var.vpc_cidr]
   }
 
   egress {
