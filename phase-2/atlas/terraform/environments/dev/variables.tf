@@ -140,3 +140,24 @@ variable "eks_tags" {
   type        = map(string)
   description = "Tags to apply to EKS resources."
 }
+
+variable "alb_controller_irsa_role_name" {
+  type        = string
+  description = "Name of the IAM role used by the AWS Load Balancer Controller service account."
+}
+
+variable "alb_attach_load_balancer_controller_policy" {
+  type        = bool
+  description = "value"
+}
+
+variable "alb_controller_service_account_namespace" {
+  type        = string
+  description = "Kubernetes namespace for the AWS Load Balancer Controller service account."
+}
+
+variable "alb_controller_service_account_name" {
+  type        = string
+  description = "Kubernetes service account name used by the AWS Load Balancer Controller."
+}
+

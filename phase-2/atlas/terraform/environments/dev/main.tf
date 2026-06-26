@@ -93,3 +93,13 @@ module "aws_rds" {
   rds_parameters                          = var.rds_parameters
   rds_options                             = var.rds_options
 }
+
+module "aws_alb_controller_irsa" {
+  source = "../../modules/alb"
+
+  role_name                              = var.alb_controller_irsa_role_name
+  oidc_provider_arn                      = module.aws_eks.oidc_provider_arn
+  attach_load_balancer_controller_policy = var.alb_attach_load_balancer_controller_policy
+  service_account_namespace              = var.alb_controller_service_account_namespace
+  service_account_name                   = var.alb_controller_service_account_name
+}
