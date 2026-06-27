@@ -26,6 +26,14 @@ module "aws_vpc" {
   vpc_environment        = var.vpc_environment
 }
 
+module "aws_s3" {
+  source = "../../modules/s3"
+
+  s3_bucket_name   = var.s3_bucket_name
+  s3_force_destroy = var.s3_force_destroy
+  s3_tags          = var.s3_tags
+}
+
 module "aws_eks" {
   source = "../../modules/eks"
 
@@ -36,8 +44,18 @@ module "aws_eks" {
   eks_enable_cluster_creator_admin_permissions = var.eks_enable_cluster_creator_admin_permissions
   eks_vpc_id                                   = module.aws_vpc.vpc_id
   eks_subnet_ids                               = module.aws_vpc.private_subnet_ids
-  eks_managed_node_groups                      = var.eks_managed_node_groups
-  eks_tags                                     = var.eks_tags
+  eks_managed_node_groups = {
+    for name, node_group in var.eks_managed_node_groups :
+    name => merge(node_group, {
+      iam_role_additional_policies = merge(
+        try(node_group.iam_role_additional_policies, {}),
+        name == "worker" ? {
+          s3_reports_write = module.aws_s3.worker_s3_policy_arn
+        } : {}
+      )
+    })
+  }
+  eks_tags = var.eks_tags
 }
 
 module "aws_ecr" {

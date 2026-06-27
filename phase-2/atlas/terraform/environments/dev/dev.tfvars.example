@@ -131,3 +131,12 @@ ecr_tags = {
   Terraform   = "true"
   Project     = "capstone-1"
 }
+
+s3_bucket_name   = "capstone-1-dev-reports"
+s3_force_destroy = true
+
+s3_tags = {
+  Environment = "dev"
+  Terraform   = "true"
+  Project     = "capstone-1"
+}
