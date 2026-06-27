@@ -99,3 +99,35 @@ eks_tags = {
   Environment = "dev"
   Terraform   = "true"
 }
+
+ecr_repositories = {
+  "capstone-1-api" = {
+    image_tag_mutability = "IMMUTABLE"
+    scan_on_push         = true
+    force_delete         = false
+  }
+
+  "capstone-1-worker" = {
+    image_tag_mutability = "IMMUTABLE"
+    scan_on_push         = true
+    force_delete         = false
+  }
+
+  "capstone-1-web" = {
+    image_tag_mutability = "IMMUTABLE"
+    scan_on_push         = true
+    force_delete         = false
+  }
+
+  "capstone-1-migrations" = {
+    image_tag_mutability = "IMMUTABLE"
+    scan_on_push         = true
+    force_delete         = false
+  }
+}
+
+ecr_tags = {
+  Environment = "dev"
+  Terraform   = "true"
+  Project     = "capstone-1"
+}

@@ -37,11 +37,11 @@ variable "eks_subnet_ids" {
 
 variable "eks_managed_node_groups" {
   type = map(object({
-    ami_type       = string
-    instance_types = list(string)
-    min_size       = number
-    max_size       = number
-    desired_size   = number
+    ami_type                     = string
+    instance_types               = list(string)
+    min_size                     = number
+    max_size                     = number
+    desired_size                 = number
     iam_role_additional_policies = optional(map(string), {})
   }))
   description = "EKS managed node group definitions."

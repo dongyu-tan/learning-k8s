@@ -141,6 +141,20 @@ variable "eks_tags" {
   description = "Tags to apply to EKS resources."
 }
 
+variable "ecr_repositories" {
+  description = "Map of ECR repositories to create. The map key is used as the repository name."
+  type = map(object({
+    force_delete         = optional(bool, false)
+    image_tag_mutability = optional(string, "IMMUTABLE")
+    scan_on_push         = optional(bool, true)
+  }))
+}
+
+variable "ecr_tags" {
+  description = "Tags to apply to ECR repositories."
+  type        = map(string)
+}
+
 variable "alb_controller_irsa_role_name" {
   type        = string
   description = "Name of the IAM role used by the AWS Load Balancer Controller service account."
@@ -160,4 +174,3 @@ variable "alb_controller_service_account_name" {
   type        = string
   description = "Kubernetes service account name used by the AWS Load Balancer Controller."
 }
-

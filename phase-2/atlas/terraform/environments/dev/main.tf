@@ -40,6 +40,13 @@ module "aws_eks" {
   eks_tags                                     = var.eks_tags
 }
 
+module "aws_ecr" {
+  source = "../../modules/ecr"
+
+  ecr_repositories = var.ecr_repositories
+  ecr_tags         = var.ecr_tags
+}
+
 resource "aws_security_group" "rds" {
   name        = "${var.rds_identifier}-sg"
   description = "Allow PostgreSQL access to ${var.rds_identifier} from within the VPC"
