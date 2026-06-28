@@ -21,7 +21,7 @@ provider "helm" {
       command     = "aws"
       args = [
         "eks", "get-token",
-        "--cluster-name", module.aws_eks.cluster-name
+        "--cluster-name", module.aws_eks.cluster_name
       ]
     }
   }
@@ -144,4 +144,26 @@ module "aws_alb_controller_irsa" {
   attach_load_balancer_controller_policy = var.alb_attach_load_balancer_controller_policy
   service_account_namespace              = var.alb_controller_service_account_namespace
   service_account_name                   = var.alb_controller_service_account_name
+}
+
+module "aws_addons" {
+  source = "../../modules/addons"
+
+  cluster = {
+    name   = module.aws_eks.cluster_name
+    vpc_id = module.aws_vpc.vpc_id
+  }
+
+  alb_controller = {
+    enabled              = true
+    irsa_role_arn        = module.aws_alb_controller_irsa.iam_role_arn
+    namespace            = var.alb_controller_service_account_namespace
+    service_account_name = var.alb_controller_service_account_name
+    wait                 = true
+  }
+
+  depends_on = [
+    module.aws_alb_controller_irsa,
+    module.aws_eks
+  ]
 }
