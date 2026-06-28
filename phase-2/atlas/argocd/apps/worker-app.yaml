@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: atlas-worker
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/dongyu-tan/learning-k8s.git
+    targetRevision: main
+    path: phase-2/atlas/charts/worker
+    helm:
+      parameters:
+        - name: image.repository
+          value: capstone-1-worker
+        - name: image.tag
+          value: local
+        - name: image.pullPolicy
+          value: Never
+        - name: secret.data.DATABASE_URL
+          value: postgresql://capstone_admin:localpassword@postgres:5432/capstone1
+        - name: secret.data.S3_BUCKET
+          value: local-placeholder
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: atlas
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
