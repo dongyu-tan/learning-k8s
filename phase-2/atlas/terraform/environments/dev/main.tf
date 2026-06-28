@@ -162,6 +162,14 @@ module "aws_addons" {
     wait                 = true
   }
 
+  argocd = {
+    enabled = true
+  }
+
+  prometheus_stack = {
+    enabled = true
+  }
+
   depends_on = [
     module.aws_alb_controller_irsa,
     module.aws_eks
