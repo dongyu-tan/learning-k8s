@@ -1,0 +1,54 @@
+image:
+  repository: capstone-1-worker
+  pullPolicy: IfNotPresent
+  tag: latest
+
+imagePullSecrets: []
+
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  automount: true
+  annotations: {}
+  name: ""
+
+secret:
+  create: true
+  name: ""
+  data:
+    DATABASE_URL: ""
+    S3_BUCKET: ""
+
+cronJob:
+  schedule: "*/15 * * * *"
+  concurrencyPolicy: Forbid
+  restartPolicy: OnFailure
+  backoffLimit: 2
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+volumes: []
+volumeMounts: []
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
