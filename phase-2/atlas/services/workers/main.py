@@ -54,7 +54,7 @@ def check_freshness(conn, source):
     if lag_minutes <= source["expected_frequency_minutes"]:
         status = "ok" 
     else:
-        "stale"
+        status = "stale"
 
     return {
         "source_id": source["id"],
