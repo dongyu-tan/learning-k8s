@@ -21,6 +21,8 @@ spec:
           value: "false"
         - name: secret.name
           value: atlas-worker-secret
+        - name: serviceAccount.annotations.eks\.amazonaws\.com/role-arn
+          value: arn:aws:iam::381492214245:role/capstone-1-worker
   destination:
     server: https://kubernetes.default.svc
     namespace: atlas
