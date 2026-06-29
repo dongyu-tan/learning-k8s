@@ -30,3 +30,4 @@ phase-1/infra/.terraform.lock.hcl
 
 .agents/
 .vscode/
+*.db
