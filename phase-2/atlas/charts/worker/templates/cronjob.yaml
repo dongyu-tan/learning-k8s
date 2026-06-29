@@ -42,11 +42,9 @@ spec:
               {{- end }}
               image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
               imagePullPolicy: {{ .Values.image.pullPolicy }}
-              {{- if .Values.secret.create }}
               envFrom:
                 - secretRef:
                     name: {{ include "worker.secretName" . }}
-              {{- end }}
               {{- with .Values.resources }}
               resources:
                 {{- toYaml . | nindent 16 }}

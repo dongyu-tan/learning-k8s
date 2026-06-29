@@ -44,11 +44,9 @@ spec:
             - name: http
               containerPort: {{ .Values.image.containerPort }}
               protocol: TCP
-          {{- if .Values.secret.create }}
           envFrom:
             - secretRef:
                 name: {{ include "api-service.secretName" . }}
-          {{- end }}
           {{- with .Values.livenessProbe }}
           livenessProbe:
             {{- toYaml . | nindent 12 }}

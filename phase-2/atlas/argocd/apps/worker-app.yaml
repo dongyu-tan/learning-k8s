@@ -12,15 +12,15 @@ spec:
     helm:
       parameters:
         - name: image.repository
-          value: capstone-1-worker
+          value: 381492214245.dkr.ecr.ap-southeast-5.amazonaws.com/capstone-1-worker
         - name: image.tag
-          value: local
+          value: latest
         - name: image.pullPolicy
-          value: Never
-        - name: secret.data.DATABASE_URL
-          value: postgresql://capstone_admin:localpassword@postgres:5432/capstone1
-        - name: secret.data.S3_BUCKET
-          value: local-placeholder
+          value: IfNotPresent
+        - name: secret.create
+          value: "false"
+        - name: secret.name
+          value: atlas-worker-secret
   destination:
     server: https://kubernetes.default.svc
     namespace: atlas
