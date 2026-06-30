@@ -18,7 +18,7 @@ spec:
         - name: image.pullPolicy
           value: IfNotPresent
         - name: ingress.enabled
-          value: "true"
+          value: "false"
         - name: secret.create
           value: "false"
         - name: secret.name
