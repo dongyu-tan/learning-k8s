@@ -14,7 +14,7 @@ spec:
         - name: image.repository
           value: 381492214245.dkr.ecr.ap-southeast-5.amazonaws.com/capstone-1-api
         - name: image.tag
-          value: 6ea63b1
+          value: cef84c1
         - name: image.pullPolicy
           value: IfNotPresent
         - name: ingress.enabled
