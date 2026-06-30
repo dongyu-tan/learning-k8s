@@ -140,3 +140,7 @@ s3_tags = {
   Terraform   = "true"
   Project     = "capstone-1"
 }
+
+worker_irsa_role_name            = "capstone-1-worker"
+worker_service_account_namespace = "atlas"
+worker_service_account_name      = "atlas-worker"

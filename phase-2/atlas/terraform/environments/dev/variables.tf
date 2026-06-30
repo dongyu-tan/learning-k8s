@@ -189,3 +189,21 @@ variable "alb_controller_service_account_name" {
   type        = string
   description = "Kubernetes service account name used by the AWS Load Balancer Controller."
 }
+
+variable "worker_irsa_role_name" {
+  description = "Name of the IAM role used by the Atlas worker service account."
+  type        = string
+  default     = "capstone-1-worker"
+}
+
+variable "worker_service_account_name" {
+  description = "Kubernetes service account name used by the Atlas worker."
+  type        = string
+  default     = "atlas-worker"
+}
+
+variable "worker_service_account_namespace" {
+  description = "Kubernetes namespace for the Atlas worker service account."
+  type        = string
+  default     = "atlas"
+}
