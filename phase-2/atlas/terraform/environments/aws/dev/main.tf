@@ -28,7 +28,7 @@ provider "helm" {
 }
 
 module "aws_vpc" {
-  source = "../../modules/aws/vpc"
+  source = "../../../modules/aws/vpc"
 
   vpc_name               = var.vpc_name
   vpc_cidr               = var.vpc_cidr
@@ -43,7 +43,7 @@ module "aws_vpc" {
 }
 
 module "aws_s3" {
-  source = "../../modules/aws/s3"
+  source = "../../../modules/aws/s3"
 
   s3_bucket_name   = var.s3_bucket_name
   s3_force_destroy = var.s3_force_destroy
@@ -51,7 +51,7 @@ module "aws_s3" {
 }
 
 module "aws_eks" {
-  source = "../../modules/aws/eks"
+  source = "../../../modules/aws/eks"
 
   eks_name                                     = var.eks_name
   eks_kubernetes_version                       = var.eks_kubernetes_version
@@ -75,7 +75,7 @@ module "aws_eks" {
 }
 
 module "aws_ecr" {
-  source = "../../modules/aws/ecr"
+  source = "../../../modules/aws/ecr"
 
   ecr_repositories = var.ecr_repositories
   ecr_tags         = var.ecr_tags
@@ -109,7 +109,7 @@ resource "aws_security_group" "rds" {
 }
 
 module "aws_rds" {
-  source = "../../modules/aws/rds"
+  source = "../../../modules/aws/rds"
 
   rds_identifier                          = var.rds_identifier
   rds_engine                              = var.rds_engine
@@ -137,7 +137,7 @@ module "aws_rds" {
 }
 
 module "aws_alb_controller_irsa" {
-  source = "../../modules/aws/alb"
+  source = "../../../modules/aws/alb"
 
   role_name                              = var.alb_controller_irsa_role_name
   oidc_provider_arn                      = module.aws_eks.oidc_provider_arn
@@ -147,7 +147,7 @@ module "aws_alb_controller_irsa" {
 }
 
 module "worker_irsa" {
-  source = "../../modules/aws/worker-irsa"
+  source = "../../../modules/aws/worker-irsa"
 
   role_name                 = var.worker_irsa_role_name
   oidc_provider_arn         = module.aws_eks.oidc_provider_arn
@@ -158,7 +158,7 @@ module "worker_irsa" {
 }
 
 module "aws_addons" {
-  source = "../../modules/aws/addons"
+  source = "../../../modules/aws/addons"
 
   cluster = {
     name   = module.aws_eks.cluster_name
