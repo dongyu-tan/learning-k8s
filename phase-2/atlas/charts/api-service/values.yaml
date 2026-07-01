@@ -40,7 +40,7 @@ ingress:
   annotations:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
-    alb.ingress.kubernetes.io/healthcheck-path: /docs
+    alb.ingress.kubernetes.io/healthcheck-path: /healthz
   hosts:
     - host: atlas.local
       paths:
@@ -58,12 +58,12 @@ resources:
 
 livenessProbe:
   httpGet:
-    path: /docs
+    path: /healthz
     port: http
 
 readinessProbe:
   httpGet:
-    path: /docs
+    path: /readyz
     port: http
 
 autoscaling:
